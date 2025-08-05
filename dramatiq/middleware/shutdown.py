@@ -115,7 +115,7 @@ class _CtypesShutdownManager(_ShutdownManager):
         self.notifications.discard(threading.get_ident())
 
     def shutdown(self):
-        for thread_id in self.notifications:
+        for thread_id in tuple(self.notifications):
             self.logger.info("Worker shutdown notification. Raising exception in worker thread %r.", thread_id)
             raise_thread_exception(thread_id, Shutdown)
 
